@@ -17,9 +17,9 @@
         echo $text;
     @endphp
     @if($value)
-        @svg($svg_true, "h-8 w-8 mx-2 inline-flex {$true_class}")
+        @svg($true, "h-8 w-8 mx-2 inline-flex {$true_class}")
     @else
-        @svg($svg_false, "h-8 w-8 mx-2 inline-flex {$false_class}")
+        @svg($false, "h-8 w-8 mx-2 inline-flex {$false_class}")
     {{ $text }}
     @endif
 </span>
