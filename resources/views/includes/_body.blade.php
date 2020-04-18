@@ -1,11 +1,11 @@
-<tbody>
+<tbody class="min-w-full">
     @if($models->isEmpty())
-        <tr>
-            <td colspan="{{ collect($columns)->count() }}">{{ $noResultsMessage }}</td>
+        <tr class="tr">
+            <td class="td" colspan="{{ collect($columns)->count() }}">{{ $noResultsMessage }}</td>
         </tr>
     @else
         @foreach($models as $model)
-            <tr class="{{ $this->setTableRowClass($model) }}" id="{{ $this->setTableRowId($model) }}" 
+            <tr class="tr {{ $this->setTableRowClass($model) }}" id="{{ $this->setTableRowId($model) }}" 
                 @foreach ($this->setTableRowAttributes($model) as $key => $value)
                     {{ $key }}="{{ $value }}"
                 @endforeach
@@ -15,7 +15,7 @@
                 @endif
 
                 @foreach($columns as $column)
-                    <td class="{{ $this->setTableDataClass($column->attribute, $model->{$column->attribute}) }}"
+                    <td class="td {{ $this->setTableDataClass($column->attribute, $model->{$column->attribute}) }}"
                         id="{{ $this->setTableDataId($column->attribute, $model->{$column->attribute}) }}" 
                         @foreach ($this->setTableDataAttributes($column->attribute, $model->{$column->attribute}) as $key => $value)
                             {{ $key }}="{{ $value }}"
@@ -43,7 +43,7 @@
                             @elseif ($column->isUnescaped())
                                 {!! $model->{$column->attribute} !!}
                             @elseif ($column->isJsonKeyVal())
-                                {{ $model->{$column->attribute}[$column->key] ?? null }}
+                                {{ \Arr::get($model->{$column->attribute}, [$column->key], null)}}
                             @else
                                 {{ $model->{$column->attribute} }}
                             @endif
