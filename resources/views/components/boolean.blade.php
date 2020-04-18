@@ -3,7 +3,7 @@
     @endforeach
     >
     @php
-        $value = \Arr::has($options, 'jsonKeyVal') ? ($model->{$options['column']}[$options['key']] || false) : ($model->{$options['column']} || false);
+        $value = $options['jsonKeyVal'] ? ($model->{$options['column']}[$options['key']] || false) : ($model->{$options['column']} || false);
         $true_class = \Arr::get($options, 'icon.true-class', 'text-green-500');
         $false_class = \Arr::get($options, 'icon.false-class', 'text-red-500');
         $true = \Arr::get($options, 'icon.true', 'solid/toggle-on');
