@@ -51,13 +51,12 @@ abstract class TableComponent extends Component
     /**
      * Constructor.
      */
-    public function mount()
-    {
+    public function setupTable() {
         $this->setTranslationStrings();
         $this->setTableProperties();
         $this->setPaginationProperties();
-        
-        if(empty($this->wireKey)) {
+
+        if (empty($this->wireKey)) {
             $this->wireKey = 'id';
         }
     }

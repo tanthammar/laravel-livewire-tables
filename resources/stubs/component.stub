@@ -12,8 +12,8 @@ class DummyComponent extends TableComponent
     public $title = '';
 
     public function mount() {
-        parent->mount();
-        $this->title = trans('crud.bookon.title');
+        $this->setupTable();
+        $this->title = trans('crud.model.title');
     }
 
     public function query()
