@@ -1,24 +1,23 @@
 <tbody>
     @if($models->isEmpty())
-        <tr><td colspan="{{ collect($columns)->count() }}">{{ $noResultsMessage }}</td></tr>
+        <tr>
+            <td colspan="{{ collect($columns)->count() }}">{{ $noResultsMessage }}</td>
+        </tr>
     @else
         @foreach($models as $model)
-            <tr
-                class="{{ $this->setTableRowClass($model) }}"
-                id="{{ $this->setTableRowId($model) }}"
+            <tr class="{{ $this->setTableRowClass($model) }}" id="{{ $this->setTableRowId($model) }}" 
                 @foreach ($this->setTableRowAttributes($model) as $key => $value)
                     {{ $key }}="{{ $value }}"
                 @endforeach
-            >
+                >
                 @if($checkbox && $checkboxLocation === 'left')
                     @include('laravel-livewire-tables::includes._checkbox-row')
                 @endif
 
                 @foreach($columns as $column)
-                    <td
-                        class="{{ $this->setTableDataClass($column->attribute, Arr::get($model->toArray(), $column->attribute)) }}"
-                        id="{{ $this->setTableDataId($column->attribute, Arr::get($model->toArray(), $column->attribute)) }}"
-                        @foreach ($this->setTableDataAttributes($column->attribute, Arr::get($model->toArray(), $column->attribute)) as $key => $value)
+                    <td class="{{ $this->setTableDataClass($column->attribute, $model->{$column->attribute}) }}"
+                        id="{{ $this->setTableDataId($column->attribute, $model->{$column->attribute}) }}" 
+                        @foreach ($this->setTableDataAttributes($column->attribute, $model->{$column->attribute}) as $key => $value)
                             {{ $key }}="{{ $value }}"
                         @endforeach
                     >
@@ -27,11 +26,11 @@
                                 @if ($message = $column->componentsHiddenMessageForModel($model))
                                     {{ $message }}
                                 @else
-                                    &nbsp;
+                                    <span>&nbsp;</span>
                                 @endif
                             @else
                                 @foreach($column->getComponents() as $component)
-                                    @if (! $component->isHidden())
+                                    @if (!$component->isHidden())
                                         @include($component->view(), ['model' => $model, 'attributes' => $component->getAttributes(), 'options' => $component->getOptions()])
                                     @endif
                                 @endforeach
@@ -40,30 +39,17 @@
                             @include($column->view)
                         @else
                             @if ($column->isHtml())
-                                @if ($column->isCustomAttribute())
-                                    {{ new \Illuminate\Support\HtmlString($model->{$column->attribute}) }}
-                                @else
-                                    {{ new \Illuminate\Support\HtmlString(Arr::get($model->toArray(), $column->attribute)) }}
-                                @endif
+                                {{ new \Illuminate\Support\HtmlString($model->{$column->attribute}) }}
                             @elseif ($column->isUnescaped())
-                                @if ($column->isCustomAttribute())
-                                    {!! $model->{$column->attribute} !!}
-                                @else
-                                    {!! Arr::get($model->toArray(), $column->attribute) !!}
-                                @endif
+                                {!! $model->{$column->attribute} !!}
                             @elseif ($column->isJsonKeyVal())
                                 {{ $model->{$column->attribute}[$column->key] ?? null }}
                             @else
-                                @if ($column->isCustomAttribute())
-                                    {{ $model->{$column->attribute} }}
-                                @else
-                                    {{ Arr::get($model->toArray(), $column->attribute) }}
-                                @endif
+                                {{ $model->{$column->attribute} }}
                             @endif
                         @endif
                     </td>
                 @endforeach
-
                 @if($checkbox && $checkboxLocation === 'right')
                     @include('laravel-livewire-tables::includes._checkbox-row')
                 @endif
