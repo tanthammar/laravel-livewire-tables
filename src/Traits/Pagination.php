@@ -23,14 +23,14 @@ trait Pagination
      *
      * @var array
      */
-    public $perPageOptions = [10, 25, 50];
+    public $perPageOptions = [10, 15, 25];
 
     /**
      * Amount of items to show per page.
      *
      * @var int
      */
-    public $perPage = 25;
+    public $perPage = 15;
 
     /**
      * The label for the per page filter.
@@ -38,4 +38,26 @@ trait Pagination
      * @var string
      */
     public $perPageLabel;
+
+    /**
+     * Custom pagination column
+     * 
+     */
+    public $paginationColView;
+
+    /**
+     * Custom pagination view
+     * 
+     */
+    public $paginationView;
+
+    public function setPaginationProperties()
+    {
+        foreach ([
+            'paginationColView',
+            'paginationView'
+        ] as $property) {
+            $this->$property = $this->$property ?? config('laravel-livewire-tables.' . $property);
+        }
+    }
 }

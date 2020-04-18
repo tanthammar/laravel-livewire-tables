@@ -54,6 +54,8 @@ abstract class TableComponent extends Component
     public function mount()
     {
         $this->setTranslationStrings();
+        $this->setTableProperties();
+        $this->setPaginationProperties();
     }
 
     /**

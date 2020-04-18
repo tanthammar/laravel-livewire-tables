@@ -4,7 +4,7 @@
 
 @foreach($columns as $column)
     <th
-        class="{{ $this->setTableHeadClass($column->attribute) }}"
+        class="{{ $this->setTableHeadClass($column->attribute) }} {{ $thClass }}"
         id="{{ $this->setTableHeadId($column->attribute) }}"
         @foreach ($this->setTableHeadAttributes($column->attribute) as $key => $value)
             {{ $key }}="{{ $value }}"

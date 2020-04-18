@@ -13,7 +13,7 @@
         <div class="{{ $responsive }}">
     @endif
 
-        <table class="{{ $tableClass }}">
+        <table class="{{ $tableClass }} min-w-full">
             @include('laravel-livewire-tables::includes._header')
             @include('laravel-livewire-tables::includes._body')
             @include('laravel-livewire-tables::includes._footer')

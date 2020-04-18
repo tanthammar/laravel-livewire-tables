@@ -12,39 +12,79 @@ trait Table
      */
 
     /**
+     * Set your own views for the component
+     */
+    public $tbody = null;
+    public $tbodyDesktop = null;
+    public $tbodyMobile = null;
+
+    /**
      * Whether or not to display the table header.
      *
      * @var bool
      */
-    public $tableHeaderEnabled = true;
+    public $tableHeaderEnabled;
+
+    /**
+     * Custom header column
+     */
+    public $headerColView;
 
     /**
      * Whether or not to display the table footer.
      *
      * @var bool
      */
-    public $tableFooterEnabled = false;
+    public $tableFooterEnabled;
 
     /**
      * The class to set on the table.
      *
      * @var string
      */
-    public $tableClass = 'table table-striped';
+    public $tableClass;
 
     /**
      * The class to set on the thead of the table.
      *
      * @var string
      */
-    public $tableHeaderClass = '';
+    public $tableHeaderClass;
 
     /**
      * The class to set on the tfoot of the table.
      *
      * @var string
      */
-    public $tableFooterClass = '';
+    public $tableFooterClass;
+
+    /**
+     * Table tbody class.
+     *
+     * @var string
+     */
+    public $tbodyClass;
+
+    /**
+     * Table tr class.
+     *
+     * @var string
+     */
+    public $trClass;
+
+    /**
+     * Table th class.
+     *
+     * @var string
+     */
+    public $thClass;
+
+    /**
+     * Table td class.
+     *
+     * @var string
+     */
+    public $tdClass;
 
     /**
      * false is off
@@ -52,7 +92,7 @@ trait Table
      *
      * @var bool
      */
-    public $responsive = 'table-responsive';
+    public $responsive;
 
     /**
      * @param $attribute
@@ -145,5 +185,24 @@ trait Table
     public function setTableDataAttributes($attribute, $value): array
     {
         return [];
+    }
+
+    public function setTableProperties()
+    {
+        foreach ([
+            'tableHeaderEnabled',
+            'headerColView',
+            'tableFooterEnabled',
+            'tableClass',
+            'tableHeaderClass',
+            'tableFooterClass',
+            'responsive',
+            'tbodyClass',
+            'trClass',
+            'thClass',
+            'tdClass'
+        ] as $property) {
+            $this->$property = $this->$property ?? config('laravel-livewire-tables.' . $property);
+        }
     }
 }

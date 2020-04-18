@@ -1,5 +1,5 @@
 @if ($paginationEnabled || $searchEnabled)
-    <div class="row mb-4">
+    <div class="row justify-content-between mb-4">
         @if ($paginationEnabled)
             <div class="col form-inline">
                 {{ $perPageLabel }}: &nbsp;
@@ -28,6 +28,12 @@
                     placeholder="{{ $searchLabel }}"
                 />
             </div>
+        @endif
+
+        @if($headerColView)
+        <div class="col-md-auto mb-3">
+            @include($headerColView)
+        </div>
         @endif
     </div>
 @endif
