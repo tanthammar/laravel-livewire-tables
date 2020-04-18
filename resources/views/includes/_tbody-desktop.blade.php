@@ -1,5 +1,5 @@
 {{-- start tr --}}
-@include('laravel-livewire-tables::includes._tr-logic')
+@include('laravel-livewire-tables::includes._tr-logic', ['visibility' => 'hidden sm:table-row'])
     {{-- left checkbox --}}
     @if($checkbox && $checkboxLocation === 'left')
         @include('laravel-livewire-tables::includes._checkbox-row')

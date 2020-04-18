@@ -3,6 +3,7 @@
 namespace Rappasoft\LaravelLivewireTables;
 
 use Illuminate\Support\ServiceProvider;
+use Rappasoft\LaravelLivewireTables\Commands\MakeTable;
 
 /**
  * Class LivewireTablesServiceProvider.
