@@ -7,7 +7,11 @@
 
     @foreach($columns as $column)
         {{-- start td --}}
-        @include('laravel-livewire-tables::includes._td-logic')
+      <td class="{{ $tdClass }} {{ $this->setTableDataClass($column->attribute, $model->{$column->attribute}) }}"
+        dusk-td-name="{{ $this->setTableDataId($column->attribute, $model->{$column->attribute}) }}"
+        @foreach ($this-> setTableDataAttributes($column->attribute, $model->{$column->attribute}) as $key => $value)
+            {{ $key }}="{{ $value }}"
+        @endforeach >
         {{-- field --}}
             @include('laravel-livewire-tables::includes._cell')
         </td>

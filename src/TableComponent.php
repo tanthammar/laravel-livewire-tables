@@ -56,6 +56,10 @@ abstract class TableComponent extends Component
         $this->setTranslationStrings();
         $this->setTableProperties();
         $this->setPaginationProperties();
+        
+        if(empty($this->wireKey)) {
+            $this->wireKey = 'id';
+        }
     }
 
     /**

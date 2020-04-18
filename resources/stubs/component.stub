@@ -8,6 +8,14 @@ use Rappasoft\LaravelLivewireTables\TableComponent;
 
 class DummyComponent extends TableComponent
 {
+    public $wireKey = 'id';
+    public $title = '';
+
+    public function mount() {
+        parent->mount();
+        $this->title = trans('crud.bookon.title');
+    }
+
     public function query()
     {
         return DummyModel::query();
