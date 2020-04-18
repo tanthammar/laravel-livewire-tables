@@ -1,3 +1,7 @@
+# This branch requirements
+- This branch requires https://github.com/adamwathan/blade-svg for **font-awesome icons**. Please setup the package following the instructions on that repo.
+- It uses **Tailwind** css instead of Bootstrap
+
 # A dynamic table component for Laravel Livewire
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/rappasoft/laravel-livewire-tables.svg?style=flat-square)](https://packagist.org/packages/rappasoft/laravel-livewire-tables)

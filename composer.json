@@ -20,7 +20,8 @@
     ],
     "require": {
         "php": "^7.2.5",
-        "livewire/livewire": "^1.0"
+        "livewire/livewire": "^1.0",
+        "nothingworks/blade-svg": "^0.3.4"
     },
     "require-dev": {
         "phpunit/phpunit": "^8.0|^9.0"
