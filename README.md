@@ -132,13 +132,8 @@ The columns output will be put through the Laravel **HtmlString** class.
 public function html() : self;
 ```
 
-Set the column to use a **models attribute** instead of a database column name. Useful for custom attributes like `$model->full_name` - `getFullNameAttribute()`:
- 
-```php
-Column::make('Full Name', 'full_name')->customAttribute()
-
-public function customAttribute() : self;
-```
+### This fork has removed the customAttribute() method
+It has no function because when the model is already retreived from the database all appended attributes are available. It also reduces the time to load because it halfed the amount of conditions in the blade body template.
  
 Use the third `$key` paramater to retreive a value from a **json** column with flat key/value pairs, **or** a models **array** attribute.
 
