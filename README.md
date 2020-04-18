@@ -394,10 +394,10 @@ You define `text`, `column`, and optional `key` when you define the boolean comp
 You do not have to specify any values for the icon. The component falls back to these settings. But many times a truthy value is considered negative and vice versa, you can therefor defin any icon and color you wish.
 ```php
 ->icon([
-   'true' => 'fas fa-toggle-on',
-   'false' => 'fas fa-toggle-off',
-   'true-class' => 'text-success',
-   'false-class' => 'text-danger'
+   'true' => 'solid/toggle-on',
+   'false' => 'solid/toggle-off',
+   'true-class' => 'text-green-500',
+   'false-class' => 'text-red-500'
  ])
 ```
 
@@ -414,8 +414,8 @@ Column::make('Published', 'published')
                 ->components([
                     Boolean::make( null, 'published')
                     ->icon([
-                        'true' => 'fas fa-eye',
-                        'false' => 'fas fa-eye-slash',
+                        'true' => 'light/eye',
+                        'false' => 'light/eye-slash',
                         'true-class' => 'text-aurora-green',
                         'false-class' => 'text-aurora-red'
                     ])
