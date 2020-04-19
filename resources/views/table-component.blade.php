@@ -5,23 +5,23 @@
 @else
     <div class="{{ $wrapperClass }}">
 @endif
-    @include('laravel-livewire-tables::includes._offline')
-    @include('laravel-livewire-tables::includes._options')
-    @include('laravel-livewire-tables::includes._loading')
+    @include('laravel-livewire-tables::includes.offline')
+    @include('laravel-livewire-tables::includes.options')
+    @include('laravel-livewire-tables::includes.loading')
 
-    @if (is_string($responsive))
-        <div class="{{ $responsive }}">
-    @endif
+    {{-- setup groups --}}
+    @php
+        if ($grouped) {
+            $groups = collect($columns)->groupBy('group');
+        }
+    @endphp
 
         <table class="{{ $tableClass }} min-w-full">
-            @include('laravel-livewire-tables::includes._header')
-            @include('laravel-livewire-tables::includes._body')
-            @include('laravel-livewire-tables::includes._footer')
+            @include('laravel-livewire-tables::includes.header')
+            @include('laravel-livewire-tables::includes.body')
+            @include('laravel-livewire-tables::includes.footer')
         </table>
 
-    @if (is_string($responsive))
-        </div>
-    @endif
 
-    @include('laravel-livewire-tables::includes._pagination')
+    @include('laravel-livewire-tables::includes.pagination')
 </div>

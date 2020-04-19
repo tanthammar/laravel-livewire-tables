@@ -51,7 +51,7 @@ trait Pagination
      */
     public $paginationView;
 
-    public function setPaginationProperties()
+    public static function setPaginationProperties()
     {
         foreach ([
             'paginationColView',

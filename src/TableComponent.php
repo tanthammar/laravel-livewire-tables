@@ -5,7 +5,6 @@ namespace Rappasoft\LaravelLivewireTables;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Str;
 use Illuminate\View\View;
-use Livewire\Component;
 use Livewire\WithPagination;
 use Rappasoft\LaravelLivewireTables\Traits\Checkboxes;
 use Rappasoft\LaravelLivewireTables\Traits\Loading;
@@ -19,7 +18,7 @@ use Rappasoft\LaravelLivewireTables\Traits\Yajra;
 /**
  * Class TableComponent.
  */
-abstract class TableComponent extends Component
+Trait TableComponent
 {
     use Checkboxes,
         Loading,
@@ -30,13 +29,7 @@ abstract class TableComponent extends Component
         Table,
         WithPagination,
         Yajra;
-
-    /**
-     * The classes applied to the wrapper div.
-     *
-     * @var string
-     */
-    public $wrapperClass = '';
+    
 
     /**
      * Whether or not to refresh the table at a certain interval
@@ -51,20 +44,21 @@ abstract class TableComponent extends Component
     /**
      * Constructor.
      */
+    public $rowWireKey = null;
     public function setupTable() {
-        $this->setTranslationStrings();
-        $this->setTableProperties();
-        $this->setPaginationProperties();
+        self::setTranslationStrings();
+        Table::setTableProperties();
+        Pagination::setPaginationProperties();
 
-        if (empty($this->wireKey)) {
-            $this->wireKey = 'id';
+        if (empty($this->rowWireKey)) {
+            $this->rowWireKey = 'id';
         }
     }
 
     /**
      * Sets the initial translations of these items.
      */
-    public function setTranslationStrings()
+    public static function setTranslationStrings()
     {
         $this->loadingMessage = __('Loading...');
         $this->offlineMessage = __('You are not currently connected to the internet.');
@@ -91,10 +85,15 @@ abstract class TableComponent extends Component
         return 'laravel-livewire-tables::table-component';
     }
 
+    public function render()
+    {
+        return $this->tableView();
+    }
+
     /**
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function render(): View
+    public function tableView(): View
     {
         return view($this->view(), [
             'columns' => $this->columns(),

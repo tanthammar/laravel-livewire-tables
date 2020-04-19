@@ -100,6 +100,28 @@ Laravel 7.x:
 
 Obviously replace *users-table* with your component name.
 
+### Override the view
+```php
+public function view()
+{
+    // custom logic to return different view
+    return 'string-with-your-view-name';
+}
+```
+
+### `render()`
+
+This method renders the table component view. If you have to override it, be sure to `return $this->tableView()`.
+```php
+//Example:
+    public function render()
+    {
+        // my custom code
+        
+        return $this->tableView();
+    }
+```
+
 ### Defining Columns
 
 You can define the columns of your table with the column class:
@@ -139,11 +161,11 @@ public function html() : self;
 ### This fork has removed the customAttribute() method
 It has no function because when the model is already retreived from the database all appended attributes are available. It also reduces the time to load because it halfed the amount of conditions in the blade body template.
  
-Use the third `$key` paramater to retreive a value from a **json** column with flat key/value pairs, **or** a models **array** attribute.
+Use the method `keyVal()` to retreive a value from a **json** column with flat key/value pairs, **or** a models **array** attribute.
 
 ```php
-Column::make('Published on map', 'settings', 'show_on_map')
-   ->jsonKeyVal(),
+Column::make('Published on map', 'settings')
+   ->keyVal('show_on_map'),
 ```
 
 
@@ -165,7 +187,6 @@ You can override any of these in your table component:
 | $tableClass | table table-striped | The class to set on the table |
 | $tableHeaderClass | *none* | The class to set on the thead of the table |
 | $tableFooterClass | *none* | The class to set on the tfoot of the table |
-| $responsive | table-responsive | Tables wrapping div class |
 
 #### Searching
 
@@ -232,7 +253,7 @@ Set a **class** on a **table header** based on the column attribute
 public function setTableHeadClass($attribute) : ?string;
 ```
 
-Set an **ID** on a **table header** based on the column attribute
+Set an **wire:key** on a **table header** based on the column attribute
 ```php
 public function setTableHeadId($attribute) : ?string;
 ```
@@ -242,16 +263,6 @@ Set any **attributes** on a **table header** based on the column attribute
 `['name' => 'my-custom-name', 'data-key' => 'my-custom-key']`
 ```php
 public function setTableHeadAttributes($attribute) : array;
-```
-
-Used to set a **class** on a **table row**. You have the entre model of the row to work with.
-```php
-public function setTableRowClass($model) : ?string;
-```
-
-Set a **ID** on a **table row**. You have the entre model of the row to work with
-```php
-public function setTableRowId($model) : ?string;
 ```
 
 Set any **attribute** on a **table row**. You have the entre model of the row to work with.
@@ -266,9 +277,9 @@ Set the **class** of a **table cell** based on the column and the value of the c
 public function setTableDataClass($attribute, $value) : ?string;
 ```
 
-Set the **ID** of a **table cell** based on the column and the value of the cell
+Set the **wire:key** of a **table cell** based on the column and the value of the cell
 ```php
-public function setTableDataId($attribute, $value) : ?string;
+public function setTdWireKey($attribute, $value) : ?string;
 ```
 
 Set any **attributes** of a **table cell** based on the column and the value of the cell
@@ -431,8 +442,8 @@ Boolean::make($label, $column, $key)->icon([...])
 ```php
 Column::make('Hide in guide', 'settings')
                 ->components([
-                    Boolean::make(null, 'settings', 'hide_in_guide')
-                        ->jsonKeyVal()
+                    Boolean::make(null, 'settings')
+                        ->keyVal('hide_in_guide')
                 ]),
 ```
 

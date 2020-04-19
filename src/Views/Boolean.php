@@ -14,12 +14,12 @@ class Boolean extends Component
      *
      * @param $text
      */
-    public function __construct($text, $column = false, $key = false)
+    public function __construct($text, $column = false)
     {
         $this->options['text'] = $text;
         $this->options['column'] = $column ?? Str::snake(Str::lower($text));
-        $this->options['key'] = $key ?? null;
-        $this->options['jsonKeyVal'] = false;
+        $this->options['key'] = null;
+        $this->options['keyVal'] = false;
         $this->options['icon'] = [
             'true' => false,
             'false' => false,
@@ -34,9 +34,9 @@ class Boolean extends Component
      * @param  string  $key
      * @return self
      */
-    public static function make($text = null, $attribute = null, $key = null): self
+    public static function make($text = null, $attribute = null): self
     {
-        return new static($text, $attribute, $key);
+        return new static($text, $attribute);
     }
 
     /**
@@ -89,9 +89,11 @@ class Boolean extends Component
      *
      * @return $this
      */
-    public function jsonKeyVal(): self
+    public function keyVal($key): self
     {
-        return $this->setOption('jsonKeyVal', true);
+        $this->setOption('key', $key);
+        $this->setOption('keyVal', true);
+        return;
     }
 
 

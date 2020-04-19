@@ -12,59 +12,34 @@ class Column
 {
     use HasComponents;
 
-    /**
-     * @var
-     */
+    protected $type = 'default';
     protected $text;
-
-    /**
-     * @var string
-     */
     protected $attribute;
-
-    /**
-     * @var string
-     */
     protected $key;
 
-    /**
-     * @var bool
-     */
+    protected $group = null;
+    protected $thColspan = 1;
+    protected $tdColspan = 1;
+
+    protected $align = 'text-left';
+    protected $hideOnMobile = false;
+    protected $hideOnDesktop = false;
+
+
+    protected $iconBefore = false;
+    protected $iconBeforeColor = null;
+    protected $iconAfter = false;
+    protected $iconAfterColor = null;
+    protected $iconEmptyWarningColor = null;
+
     protected $searchable = false;
+    protected $searchCallback = null;
 
-    /**
-     * @var null
-     */
-    protected $searchCallback;
-
-    /**
-     * @var bool
-     */
     protected $sortable = false;
-
-    /**
-     * @var
-     */
     protected $sortCallback;
 
-    /**
-     * @var bool
-     */
-    protected $unescaped = false;
-
-    /**
-     * @var bool
-     */
-    protected $html = false;
-
-    /**
-     * This column is a custom attribute on the model and not a column in the database.
-     *
-     * @var bool
-     */
-    protected $customAttribute = false;
-
-    protected $jsonKeyVal = false;
+    protected $callField = null;
+    protected $bladeString = null;
 
     /**
      * @var
@@ -76,13 +51,11 @@ class Column
      *
      * @param $text
      * @param $attribute
-     * @param $key
      */
-    public function __construct($text, $attribute = false, $key = false)
+    public function __construct($text, $attribute = false)
     {
         $this->text = $text;
         $this->attribute = $attribute ?? Str::snake(Str::lower($text));
-        $this->key = $key ?? null;
     }
 
     /**
@@ -102,9 +75,9 @@ class Column
      *
      * @return static
      */
-    public static function make($text = null, $attribute = null, $key = null)
+    public static function make($text = null, $attribute = null)
     {
-        return new static($text, $attribute, $key);
+        return new static($text, $attribute);
     }
 
     /**
@@ -117,10 +90,8 @@ class Column
         if ($this->hasComponents()) {
             return $this;
         }
-
         $this->searchCallback = $callable;
         $this->searchable = true;
-
         return $this;
     }
 
@@ -142,10 +113,8 @@ class Column
         if ($this->hasComponents()) {
             return $this;
         }
-
         $this->sortCallback = $callable;
         $this->sortable = true;
-
         return $this;
     }
 
@@ -165,18 +134,76 @@ class Column
         if ($this->hasComponents()) {
             return $this;
         }
-
-        $this->unescaped = true;
-
+        $this->type = 'unescaped';
         return $this;
     }
 
     /**
-     * @return bool
+     * make a click to call href, optional field
      */
-    public function isUnescaped(): bool
+    public function clickCall($field = null): self
     {
-        return $this->unescaped;
+        $this->type = 'clickCall';
+        $this->callfield = $field ?? null;
+        return $this;
+    }
+
+    /**
+     * Parse blade string
+     */
+    public function blade($string): self
+    {
+        $this->type = 'blade';
+        $this->bladeString = $string;
+        return $this;
+    }
+
+    /**
+     * Create column group
+     */
+    public function group($num): self
+    {
+        $this->group = $num;
+        return $this;
+    }
+
+    public function hideOnMobile(): self
+    {
+        $this->hideOnMobile = true;
+        return $this;
+    }
+
+    public function hideOnDesktop(): self
+    {
+        $this->hideOnDesktop = true;
+        return $this;
+    }
+
+    /**
+     * Cell alignment
+     */
+    public function align($class): self
+    {
+        $this->align = $class ?? 'text-left';
+        return $this;
+    }
+
+    /**
+     * Header colspan
+     */
+    public function thColspan($num): self
+    {
+        $this->thColspan = $num ?? 1;
+        return $this;
+    }
+
+    /**
+     * Body colspan
+     */
+    public function tdColspan($num): self
+    {
+        $this->tdColspan = $num ?? 1;
+        return $this;
     }
 
     /**
@@ -187,64 +214,54 @@ class Column
         if ($this->hasComponents()) {
             return $this;
         }
-
-        $this->html = true;
-
+        $this->type = 'html';
         return $this;
     }
 
     /**
-     * @return bool
-     */
-    public function isHtml(): bool
-    {
-        return $this->html;
-    }
-
-    /**
+     * @param string $key
      * @return $this
      */
-    public function customAttribute(): self
+    public function keyVal($key): self
     {
-        if ($this->hasComponents()) {
-            return $this;
-        }
+        $this->key = $key;
+        $this->type = 'keyVal';
+        return $this;
+    }
 
-        $this->customAttribute = true;
 
+    public function emptyWarning($color = null): self
+    {
+        $this->type = 'emptyWarning';
+        $this->iconEmptyWarningColor = $color ?? null;
         return $this;
     }
 
     /**
-     * @return bool
+     * @param string $icon
+     * @param string $color
      */
-    public function isCustomAttribute(): bool
+    public function iconBefore($icon, $color = null): self
     {
-        return $this->customAttribute;
-    }
-
-    /**
-     * @return $this
-     */
-    public function jsonKeyVal(): self
-    {
-
-        $this->jsonKeyVal = true;
-
+        $this->iconBefore = $icon;
+        $this->iconBeforeColor = $color ?? null;
         return $this;
     }
 
     /**
-     * @return bool
+     * @param string $icon
+     * @param string $color
      */
-    public function isJsonKeyVal(): bool
+    public function iconAfter($icon, $color = null): self
     {
-        return $this->jsonKeyVal;
+        $this->iconAfter = $icon;
+        $this->iconAfterColor = $color ?? null;
+        return $this;
     }
+
 
     /**
      * @param $view
-     *
      * @return $this
      */
     public function view($view): self
@@ -252,9 +269,7 @@ class Column
         if ($this->hasComponents()) {
             return $this;
         }
-
         $this->view = $view;
-
         return $this;
     }
 

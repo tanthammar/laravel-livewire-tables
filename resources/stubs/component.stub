@@ -5,10 +5,14 @@ namespace App\Http\Livewire;
 use App\DummyModel;
 use Rappasoft\LaravelLivewireTables\Views\Column;
 use Rappasoft\LaravelLivewireTables\TableComponent;
+use Livewire\Component;
 
-class DummyComponent extends TableComponent
+class DummyComponent extends Component
 {
-    public $wireKey = 'id';
+    use Column, TableComponent;
+
+    public $modelName = 'dummymodel';
+    public $rowWireKey = 'id';
     public $title = '';
 
     public function mount() {
