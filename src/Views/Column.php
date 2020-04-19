@@ -20,6 +20,7 @@ class Column
     protected $group = null;
     protected $thColspan = 1;
     protected $tdColspan = 1;
+    protected $colClass = null;
 
     protected $align = 'text-left';
     protected $hideOnMobile = false;
@@ -132,6 +133,15 @@ class Column
     public function isSortable(): bool
     {
         return $this->sortable;
+    }
+
+    /**
+     * @return $this
+     */
+    public function class($class): self
+    {
+        $this->colClass = $class;
+        return $this;
     }
 
     /**

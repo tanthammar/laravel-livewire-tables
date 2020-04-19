@@ -62,6 +62,13 @@ Trait TableComponent
         $this->searchLabel = __('Search...');
     }
 
+    public $selectedID = null;
+    public function selectModel($uuid)
+    {
+        //if we click again on the same uuid, close panel
+        $this->selectedID = $this->selectedID == $uuid ? '' : $uuid;
+    }
+
     /**
      * @return mixed
      */

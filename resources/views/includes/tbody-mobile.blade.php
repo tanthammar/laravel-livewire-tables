@@ -15,7 +15,7 @@ wire:key="{{ $model->{$model->getRouteKeyName()} }}">
                 <tr class="tr">
                     @foreach ($group as $column)
                         @if(!$column->hideOnMobile)
-                            <td>
+                            <td class="{{ $column->colClass }}">
                                 @include('laravel-livewire-tables::includes.td-mobile-content')
                             </td>
                         @endif
@@ -27,7 +27,7 @@ wire:key="{{ $model->{$model->getRouteKeyName()} }}">
             {{-- single cell --}}
             @foreach($columns as $column)
                 @if(!$column->hideOnMobile)
-                    <div class="w-full">
+                    <div class="w-full {{ $column->colClass }}">
                         @include('laravel-livewire-tables::includes.td-mobile-content')
                     </div>
                 @endif

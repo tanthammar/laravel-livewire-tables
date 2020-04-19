@@ -29,11 +29,5 @@
                 />
             </div>
         @endif
-
-        @if($headerColView)
-        <div class="col-md-auto mb-3">
-            @include($headerColView)
-        </div>
-        @endif
     </div>
 @endif

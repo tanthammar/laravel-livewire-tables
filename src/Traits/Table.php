@@ -7,11 +7,17 @@ trait Table
     /**
      * Custom views
      */
-    public $tbody = null;
-    public $tbodyDesktop = null;
-    public $tbodyMobile = null;
-    public $headerColView = null;
-
+    public $tbody = null; // in <tbody> before loop, has $models
+    public $tbodyDesktop = null; // in <tbody> in loop, has $model, add tr
+    public $tbodyMobile = null; // in <tbode> in loop, has $model, add tr
+    public $afterTitle = null; // help article position
+    public $noTable = null; //replaces <tbody>, has $models
+    public $modal = null; // after main section
+    public $customHead = null; //in <thead><tr> before loop, has $groups, add th
+    public $ths = null; //add extra th cells, outside of loop
+    public $hasRowPanel = false; //click to show panel on each row
+    public $rowPanel = null; // in w-full td, colspan-all, has $model + $columns
+  
     /**
      * Visibility for areas
      */
@@ -121,7 +127,6 @@ trait Table
             'trClass',
             'thClass',
             'tdClass',
-            'headerColView',
             'tableHeaderEnabled',
             'tableFooterEnabled',
             'grouped',

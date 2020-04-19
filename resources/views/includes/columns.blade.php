@@ -1,7 +1,7 @@
 <tr class="{{ $trClass }}">
 @if(isset($customHead))
 {{-- custom thead replaces fields loop --}}
-{{ $customHead }}
+@include($customHead)
 @else
 
 @if($checkbox && $checkboxLocation === 'left')
@@ -31,7 +31,9 @@
 @endif
 
 {{-- extra slot for additional th after looped fields --}}
-{{ isset($thead) ? $thead : null }}
+@if(isset($ths))
+ @include($ths)
+@endif
 
 @if($checkbox && $checkboxLocation === 'right')
     @include('laravel-livewire-tables::includes.checkbox-all')

@@ -3,7 +3,6 @@
 return [
 
     'tableHeaderEnabled' => env('TABLE_HEAD_ENABLED', true),
-    'headerColView' => env('TABLE_HEAD_COL_VIEW', null),
     'tableFooterEnabled' => env('TABLE_FOOTER_ENABLED', false),
     'grouped' => env('TABLE_GROUPED', false),
     'arrow' => env('TABLE_ARROW', true),

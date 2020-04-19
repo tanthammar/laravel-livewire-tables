@@ -36,7 +36,7 @@
             {{-- after title slot --}}
             @if(isset($afterTitle))
             <div class="max-w-7xl mx-auto px-4 py-4 sm:px-6 lg:px-8">
-                {{ $afterTitle }}
+                @include($afterTitle)
             </div>
             @endif
         
@@ -51,7 +51,7 @@
                                     <x-lists.no-items /> {{$title}}
                                 </div>
                             @else
-                                @if(isset($noTable)) {{$noTable}} @else
+                                @if(isset($noTable)) @include($noTable) @else
                                     <table class="{{ $tableClass }} min-w-full">
                                         @include('laravel-livewire-tables::includes.header')
                                         @include('laravel-livewire-tables::includes.body')
@@ -64,8 +64,9 @@
                 </div>
             </div>
             {{-- modal slot --}}
-            {{ isset($modal) ? $modal : null }}
+            @if(isset($modal)) @include($modal) @endif
         </main>
     {{-- Footer Pagination --}}
     @include('laravel-livewire-tables::includes.pagination')
 </div>
+<x-title :title="$title" />
