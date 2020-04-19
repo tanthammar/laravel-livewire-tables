@@ -3,13 +3,15 @@
 namespace App\Http\Livewire;
 
 use App\DummyModel;
+use Illuminate\Database\Eloquent\Builder;
 use Rappasoft\LaravelLivewireTables\Views\Column;
 use Rappasoft\LaravelLivewireTables\TableComponent;
 use Livewire\Component;
+use Rappasoft\LaravelLivewireTables\Views\Contracts\TableContract;
 
-class DummyComponent extends Component
+class DummyComponent extends Component implements TableContract
 {
-    use Column, TableComponent;
+    use TableComponent;
 
     public $modelName = 'dummymodel';
     public $rowWireKey = 'id';

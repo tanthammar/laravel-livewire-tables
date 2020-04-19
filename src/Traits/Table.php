@@ -5,10 +5,6 @@ namespace Rappasoft\LaravelLivewireTables\Traits;
 trait Table
 {
     /**
-     * abstracts
-     */
-    abstract $modelName;
-    /**
      * Custom views
      */
     public $tbody = null;
