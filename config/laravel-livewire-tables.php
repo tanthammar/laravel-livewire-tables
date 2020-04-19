@@ -7,7 +7,6 @@ return [
     'tableFooterEnabled' => env('TABLE_FOOTER_ENABLED', false),
     'grouped' => env('TABLE_GROUPED', false),
     'arrow' => env('TABLE_ARROW', true),
-    'wrapperClass' => env('WRAPPER_CLASS', null),
     'tableClass' => env('TABLE_CLASS', null),
     'tbodyClass' => env('TBODY_CLASS', null),
     'tableHeaderClass' => env('TABLE_THEAD_CLASS', null),
@@ -18,6 +17,5 @@ return [
     'checkbox' => env('TABLE_CHECKBOX', true),
     'checkbox_side' => env('TABLE_CHECKBOX_SIDE', 'left'),
     'per_page' => env('TABLE_PER_PAGE', 15),
-    'paginationColView' => env('TABLE_PAGINATION_COL_VIEW', null),
-    'paginationView' => env('TABLE_PAGINATION_VIEW', null)
+    'paginationView' => env('TABLE_PAGINATION_VIEW', 'partials.rounded-pagination')
 ];

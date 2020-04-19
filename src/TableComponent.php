@@ -58,7 +58,7 @@ Trait TableComponent
         $this->loadingMessage = __('Loading...');
         $this->offlineMessage = __('You are not currently connected to the internet.');
         $this->noResultsMessage = __('There are no results to display for this query.');
-        $this->perPageLabel = __('Per Page');
+        $this->perPageLabel = trans('pagination.per_page');
         $this->searchLabel = __('Search...');
     }
 

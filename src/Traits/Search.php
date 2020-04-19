@@ -24,7 +24,7 @@ trait Search
      *
      * @var int
      */
-    public $searchDebounce = 350;
+    public $searchDebounce = 750;
 
     /**
      * Whether or not to disable the search bar when it is searching/loading new data.

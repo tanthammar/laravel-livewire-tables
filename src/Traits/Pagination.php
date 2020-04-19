@@ -39,11 +39,6 @@ trait Pagination
      */
     public $perPageLabel;
 
-    /**
-     * Custom pagination column
-     * 
-     */
-    public $paginationColView;
 
     /**
      * Custom pagination view
@@ -54,7 +49,6 @@ trait Pagination
     public function setPaginationProperties()
     {
         foreach ([
-            'paginationColView',
             'paginationView'
         ] as $property) {
             $this->$property = $this->$property ?? config('laravel-livewire-tables.' . $property);

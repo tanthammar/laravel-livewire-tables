@@ -32,6 +32,8 @@ class Column
     protected $iconAfterColor = null;
     protected $iconEmptyWarningColor = null;
 
+    protected $orderBy = null;
+
     protected $searchable = false;
     protected $searchCallback = null;
 
@@ -115,6 +117,12 @@ class Column
         }
         $this->sortCallback = $callable;
         $this->sortable = true;
+        return $this;
+    }
+
+    public function orderBy($field): self
+    {
+        $this->orderBy = $field;
         return $this;
     }
 

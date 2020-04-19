@@ -22,7 +22,6 @@ trait Table
     /**
      * Apply Classes
      */
-    public $wrapperClass = null;
     public $tableClass = null;
     public $tableHeaderClass = null;
     public $tbodyClass = null;
@@ -115,7 +114,6 @@ trait Table
     public function setTableProperties()
     {
         foreach ([
-            'wrapperClass',
             'tableClass',
             'tableHeaderClass',
             'tbodyClass',

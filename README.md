@@ -243,7 +243,6 @@ You can override any of these in your table component:
 
 | Property | Default | Usage |
 | -------- | ------- | ----- |
-| $wrapperClass | *none* | The classes applied to the wrapper div |
 | $refresh | false | Whether or not to refresh the table at a certain interval. false = off, If it's an integer it will be treated as milliseconds (2000 = refresh every 2 seconds), If it's a string it will call that function every 5 seconds.
 
 ### Table Methods
