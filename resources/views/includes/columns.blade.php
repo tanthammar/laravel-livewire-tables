@@ -11,7 +11,7 @@
 @if($grouped)
     {{-- grouped cell --}}
     @foreach($groups as $group)
-        <th class="{{ $thClass }}" colspan="{{ $group->pluck('colspan')[0] ?? 1 }}">
+        <th class="{{ $thClass }} {{ $column->align }}" colspan="{{ $group->pluck('colspan')[0] ?? 1 }}">
             @foreach ($group as $column)
             @if (!$column->hideOnDesktop)
             <div class="w-full {{ $column->align }}">
@@ -24,7 +24,7 @@
 @else
     {{-- single cell --}}
     @foreach($columns as $column)
-        <th class="{{ $thClass }}" colspan="{{ $column->thColspan }}">
+        <th class="{{ $thClass }} {{ $column->align }}" colspan="{{ $column->thColspan }}">
             @include('laravel-livewire-tables::includes.th-link')
         </th>
     @endforeach

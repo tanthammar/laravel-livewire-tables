@@ -12,7 +12,7 @@ wire:key="{{ $model->{$model->getRouteKeyName()} }}">
     @if($grouped)
         {{-- grouped cell --}}
         @foreach($groups as $group)
-        <td class="{{ $tdClass }}"  colspan="{{ $group->pluck('colspan')[0] ?? 1 }}">
+        <td class="{{ $tdClass }}{{ $column->align }}"  colspan="{{ $group->pluck('colspan')[0] ?? 1 }}">
             @foreach ($group as $column)
                 @if(!$column->hideOnDesktop)
                     <span class="w-full {{ $column->colClass}}">@include('laravel-livewire-tables::includes.cell')</span>
@@ -24,7 +24,7 @@ wire:key="{{ $model->{$model->getRouteKeyName()} }}">
         {{-- single cell --}}
         @foreach($columns as $column)
             @if(!$column->hideOnDesktop)
-                <td class="{{ $tdClass }} {{ $column->colClass}}" colspan="{{ $column->tdColspan }}">
+                <td class="{{ $tdClass }} {{ $column->colClass}} {{ $column->align }}" colspan="{{ $column->tdColspan }}">
                     @include('laravel-livewire-tables::includes.cell')
                 </td>
             @endif
