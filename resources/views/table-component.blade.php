@@ -15,7 +15,6 @@
             $groups = collect($columns)->groupBy('group');
         }
     @endphp
-
         <table class="{{ $tableClass }} min-w-full">
             @include('laravel-livewire-tables::includes.header')
             @include('laravel-livewire-tables::includes.body')

@@ -2,13 +2,12 @@
     @include('laravel-livewire-tables::includes.checkbox-all')
 @endif
 
-@include('laravel-livewire-tables::includes.th-logic')
 @if($grouped)
     {{-- grouped cell --}}
     @foreach($groups as $group)
-        <th class="{{ $thClass }}" wire:key="{{ $thWireKey }}" {{$thAttributes}} colspan="{{ $group->pluck('colspan')[0] ?? 1 }}">
+        <th class="{{ $thClass }}" colspan="{{ $group->pluck('colspan')[0] ?? 1 }}">
             @foreach ($group as $column)
-            @if (!$hideOnDesktop)
+            @if (!$column->hideOnDesktop)
             <div class="w-full {{ $column->align }}">
                 @include('laravel-livewire-tables::includes.th-link')
             </div> 
@@ -19,7 +18,7 @@
 @else
     {{-- single cell --}}
     @foreach($columns as $column)
-        <th class="{{ $thClass }}" wire:key="{{ $thWireKey }}" {{$thAttributes}} colspan="{{ $thColspan }}">
+        <th class="{{ $thClass }}" colspan="{{ $column->thColspan }}">
             @include('laravel-livewire-tables::includes.th-link')
         </th>
     @endforeach
@@ -30,5 +29,5 @@
 @endif
 
 @if($arrow)
-<th></th>
+<th class="{{ $thClass }}"></th>
 @endif

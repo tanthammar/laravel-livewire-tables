@@ -37,6 +37,12 @@ trait Table
      */
     public $grouped = false;
 
+    /**
+     * LiveWire
+     */
+    public $rowWireKey = 'uuid';
+    public $modelName = 'event';
+
 
     /**
      * @param $attribute
@@ -112,7 +118,7 @@ trait Table
         return [];
     }
 
-    public static function setTableProperties()
+    public function setTableProperties()
     {
         foreach ([
             'wrapperClass',

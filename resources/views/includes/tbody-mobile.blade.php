@@ -1,23 +1,21 @@
-@include('laravel-livewire-tables::includes.tr-logic')
-<tr x-on:click="window.location.href='{{$clickRoute}}'"
+<tr x-on:click="window.location.href='{{route("app.{$modelName}s.show", [$modelName => $model->{$model->getRouteKeyName()}])}}'"
 class="sm:hidden cursor-pointer {{ $trClass }}" 
-wire:key="{{ $model->{$rowWireKey} }} {{ $trAttributes }}">
+wire:key="{{ $model->{$rowWireKey} }}">
     {{-- left checkbox --}}
     @if($checkbox && $checkboxLocation === 'left')
         @include('laravel-livewire-tables::includes.checkbox-row')
     @endif
     
     {{-- start td --}}
-    @include('laravel-livewire-tables::includes.td-logic')
-    <td class="{{$tdClass}}>
+    <td class="{{$tdClass}}">
         @if($grouped)
             {{-- grouped cell --}}
             <table class="w-full">
                 @foreach($groups as $group)
                 <tr class="tr">
                     @foreach ($group as $column)
-                        @if(!$hideOnMobile)
-                            <td class="{{ $tdDataClass }}" wire:key="'{{ $tdWireKey }}'" {{ $tdAttributes }}>
+                        @if(!$column->hideOnMobile)
+                            <td>
                                 @include('laravel-livewire-tables::includes.td-mobile-content')
                             </td>
                         @endif
@@ -28,8 +26,8 @@ wire:key="{{ $model->{$rowWireKey} }} {{ $trAttributes }}">
         @else
             {{-- single cell --}}
             @foreach($columns as $column)
-                @if(!$hideOnMobile)
-                    <div class="w-full {{ $tdDataClass }}" wire:key="'{{ $tdWireKey }}'" {{ $tdAttributes }}>
+                @if(!$column->hideOnMobile)
+                    <div class="w-full">
                         @include('laravel-livewire-tables::includes.td-mobile-content')
                     </div>
                 @endif

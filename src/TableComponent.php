@@ -44,21 +44,16 @@ Trait TableComponent
     /**
      * Constructor.
      */
-    public $rowWireKey = null;
     public function setupTable() {
-        self::setTranslationStrings();
-        Table::setTableProperties();
-        Pagination::setPaginationProperties();
-
-        if (empty($this->rowWireKey)) {
-            $this->rowWireKey = 'id';
-        }
+        $this->setTranslationStrings();
+        $this->setTableProperties();
+        $this->setPaginationProperties();
     }
 
     /**
      * Sets the initial translations of these items.
      */
-    public static function setTranslationStrings()
+    public function setTranslationStrings()
     {
         $this->loadingMessage = __('Loading...');
         $this->offlineMessage = __('You are not currently connected to the internet.');

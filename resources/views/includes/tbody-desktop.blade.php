@@ -1,18 +1,16 @@
-@include('laravel-livewire-tables::includes.tr-logic')
-<tr x-on:click="window.location.href='{{$clickRoute}}'"
+<tr x-on:click="window.location.href='{{route("app.{$modelName}s.show", [$modelName => $model->{$model->getRouteKeyName()}])}}'"
 class="hidden sm:table-row cursor-pointer {{ $trClass }}" 
-wire:key="{{ $model->{$rowWireKey} }} {{ $trAttributes }}">
+wire:key="{{ $model->{$rowWireKey} }}">
     {{-- left checkbox --}}
     @if($checkbox && $checkboxLocation === 'left')
         @include('laravel-livewire-tables::includes.checkbox-row')
     @endif
-    @include('laravel-livewire-tables::includes.td-logic')
     @if($grouped)
         {{-- grouped cell --}}
         @foreach($groups as $group)
-        <td class="{{ $tdClass }} {{ $tdDataClass }}" wire:key="'{{ $tdWireKey }}'" {{ $tdAttributes }} colspan="{{ $tdColspan }}">
+        <td class="{{ $tdClass }}"  colspan="{{ $column->tdColspan }}">
             @foreach ($group as $column)
-                @if(!$hideOnDesktop)
+                @if(!$column->hideOnDesktop)
                     @include('laravel-livewire-tables::includes.cell')
                 @endif
             @endforeach
@@ -21,8 +19,8 @@ wire:key="{{ $model->{$rowWireKey} }} {{ $trAttributes }}">
     @else
         {{-- single cell --}}
         @foreach($columns as $column)
-            @if(!$hideOnDesktop)
-                <td class="{{ $tdClass }} {{ $tdDataClass }}" wire:key="'{{ $tdWireKey }}'" {{ $tdAttributes }} colspan="{{ $tdColspan }}">
+            @if(!$column->hideOnDesktop)
+                <td class="{{ $tdClass }}" colspan="{{ $column->tdColspan }}">
                     @include('laravel-livewire-tables::includes.cell')
                 </td>
             @endif

@@ -1,17 +1,17 @@
 <tbody class="{{ $tbodyClass }}">
 {{-- custom tbody --}}
         @if(isset($tbody)) @include($tbody) @else
-            {{-- custom desktop view --}}
-            @if(isset($tbodyDesktop)) 
-                @each($tbodyDesktop, $models, 'model', 'view.empty') 
-            @else
-                @each('laravel-livewire-tables::includes.tbody-desktop', $models, 'model', 'view.empty')
+            @if(isset($tbodyDesktop)) @include($tbodyDesktop) @else
+                {{-- desktop view --}}
+                @foreach ($models as $model)
+                    @include('laravel-livewire-tables::includes.tbody-desktop')
+                @endforeach
             @endif
-            {{-- custom mobile view --}}
-            @if(isset($tbodyMobile)) 
-                @each($tbodyMobile, $models, 'model', 'view.empty') 
-            @else
-                @each('laravel-livewire-tables::includes.tbody-mobile', $models, 'model', 'view.empty')
+            @if(isset($tbodyMobile)) @include($tbodyMobile) @else
+                {{-- mobile view --}}
+                @foreach ($models as $model)
+                    @include('laravel-livewire-tables::includes.tbody-mobile')
+                @endforeach
             @endif
         @endif
 </tbody>

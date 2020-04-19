@@ -93,7 +93,7 @@ class Boolean extends Component
     {
         $this->setOption('key', $key);
         $this->setOption('keyVal', true);
-        return;
+        return $this;
     }
 
 
