@@ -1,6 +1,6 @@
 <tr x-on:click="window.location.href='{{route("app.{$modelName}s.show", [$modelName => $model->{$model->getRouteKeyName()}])}}'"
 class="sm:hidden cursor-pointer {{ $trClass }}" 
-wire:key="{{ $model->{$rowWireKey} }}">
+wire:key="{{ $model->{$model->getRouteKeyName()} }}">
     {{-- left checkbox --}}
     @if($checkbox && $checkboxLocation === 'left')
         @include('laravel-livewire-tables::includes.checkbox-row')

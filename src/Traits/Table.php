@@ -37,12 +37,6 @@ trait Table
      */
     public $grouped = false;
 
-    /**
-     * LiveWire
-     */
-    public $rowWireKey = 'uuid';
-    public $modelName = 'event';
-
 
     /**
      * @param $attribute
