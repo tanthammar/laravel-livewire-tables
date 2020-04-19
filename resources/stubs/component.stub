@@ -4,24 +4,26 @@ namespace App\Http\Livewire;
 
 use App\DummyModel;
 use Illuminate\Database\Eloquent\Builder;
-use Rappasoft\LaravelLivewireTables\Views\Column;
-use Rappasoft\LaravelLivewireTables\TableComponent;
 use Livewire\Component;
-use Rappasoft\LaravelLivewireTables\Views\Contracts\TableContract;
+use Rappasoft\LaravelLivewireTables\TableComponent;
+use Rappasoft\LaravelLivewireTables\Views\Column;
 
-class DummyComponent extends Component implements TableContract
+class DummyComponent extends Component
 {
     use TableComponent;
 
-    public $modelName = 'dummymodel';
-    public $title = '';
-
-    public function mount() {
+    public function mount()
+    {
         $this->setupTable();
-        $this->title = trans('crud.model.title');
+        $this->fill([
+            'title' => trans('crud.model.title'),
+            'sortField' => 'name',
+            'sortAsc' => true,
+            'modelName' => 'event',
+        ]);
     }
 
-    public function query()
+    public function query(): Builder
     {
         return DummyModel::query();
     }
@@ -29,11 +31,21 @@ class DummyComponent extends Component implements TableContract
     public function columns()
     {
         return [
-            Column::make('ID')->searchable()->sortable(),
+            Column::make('Nr', 'id')->searchable()->sortable(),
             Column::make('Name')->searchable()->sortable(),
             Column::make('Description')->searchable()->sortable(),
-            Column::make('Created At')->searchable()->sortable(),
-            Column::make('Updated At')->searchable()->sortable(),
+            Column::make('Published', 'published')
+                ->sortable()
+                ->hideOnMobile()
+                ->components([
+                    Boolean::make(null, 'published')
+                        ->icon([
+                            'true' => 'light/eye',
+                            'false' => 'light/eye-slash',
+                            'true-class' => 'text-aurora-green',
+                            'false-class' => 'text-aurora-red'
+                        ])
+                ]),
         ];
     }
 }

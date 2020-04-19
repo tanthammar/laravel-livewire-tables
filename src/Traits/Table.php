@@ -24,6 +24,7 @@ trait Table
     public $tableHeaderEnabled = true;
     public $tableFooterEnabled = false;
     public $arrow = true;
+    public $grouped = false;
 
     /**
      * Apply Classes
@@ -38,9 +39,11 @@ trait Table
     
 
     /**
-     * Layout
+     * Methods
      */
-    public $grouped = false;
+    public $title = '';
+    public $modelName = '';
+    
 
 
     /**

@@ -24,6 +24,7 @@ trait Sorting
      * @var bool
      */
     public $sortDirection = 'asc';
+    public $sortAsc = true;
 
     /**
      * @param $attribute
