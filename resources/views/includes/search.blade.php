@@ -1,15 +1,6 @@
-{{-- Define Tooltip --}}
-@php
-    $tooltip = trans('global.search_in_fields').': ';
-    foreach($columns as $column) {
-        if($column->isSearchable()) {
-            $tooltip .= $column->text.'. ';
-        }
-    }
-@endphp
 {{-- search field --}}
 <x-layout.topbar>
-    <div class="w-full flex md:ml-0" {{ Popper::arrow('round')->pop($tooltip) }}>
+    <div class="w-full flex md:ml-0" {{ Popper::arrow('round')->pop($this->searchTooltip()) }}>
         <label for="search_field" class="sr-only">Search</label>
         <div class="relative w-full text-gray-400 focus-within:text-gray-600">
             <div class="absolute inset-y-0 left-0 flex items-center pointer-events-none">

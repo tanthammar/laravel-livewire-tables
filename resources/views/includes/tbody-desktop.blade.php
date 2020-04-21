@@ -14,20 +14,18 @@ wire:key="{{ $model->{$model->getRouteKeyName()} }}">
         @foreach($groups as $group)
         <td class="{{ $tdClass }}{{ $column->align }}"  colspan="{{ $group->pluck('colspan')[0] ?? 1 }}">
             @foreach ($group as $column)
-                @if(!$column->hideOnDesktop)
-                    <span class="w-full {{ $column->colClass}}">@include('laravel-livewire-tables::includes.cell')</span>
-                @endif
+                <span class="w-full {{ $column->colClass }} {{ $column->visibility }}">@include('laravel-livewire-tables::includes.cell')</span>
             @endforeach
         </td>
         @endforeach
     @else
         {{-- single cell --}}
-        @foreach($columns as $column)
-            @if(!$column->hideOnDesktop)
-                <td class="{{ $tdClass }} {{ $column->colClass}} {{ $column->align }}" colspan="{{ $column->tdColspan }}">
-                    @include('laravel-livewire-tables::includes.cell')
-                </td>
-            @endif
+        @foreach($groups as $group)
+        @foreach ($group as $column)
+            <td class="{{ $tdClass }} {{ $column->visibility }} {{ $column->colClass}} {{ $column->align }}" colspan="{{ $column->tdColspan }}">
+                @include('laravel-livewire-tables::includes.cell')
+            </td>
+        @endforeach
         @endforeach
     @endif
     {{-- right checkbox --}}
@@ -49,7 +47,7 @@ wire:key="{{ $model->{$model->getRouteKeyName()} }}">
 </tr>
 @if($hasRowPanel && $selectedID == $model->uuid)
 <tr>
-    <td colspan="{{ collect($columns)->count() }}">
+    <td colspan="{{ count(array_dot($groups), COUNT_RECURSIVE) }}">
         @include($rowPanel)
     </td>
 </tr>

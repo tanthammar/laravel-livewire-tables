@@ -14,9 +14,10 @@ trait Table
     public $noTable = null; //replaces <tbody>, has $models
     public $modal = null; // after main section
     public $customHead = null; //in <thead><tr> before loop, has $groups, add th
-    public $ths = null; //add extra th cells, outside of loop
+    public $theadSlot = null; //add extra th cells, outside of loop
     public $hasRowPanel = false; //click to show panel on each row
     public $rowPanel = null; // in w-full td, colspan-all, has $model + $columns
+    public $sidePanel = null; // left side of table, suitable for extended search form
   
     /**
      * Visibility for areas
@@ -24,7 +25,7 @@ trait Table
     public $tableHeaderEnabled = true;
     public $tableFooterEnabled = false;
     public $arrow = true;
-    public $grouped = false;
+    //protected $groups = [];
 
     /**
      * Apply Classes
@@ -34,6 +35,7 @@ trait Table
     public $tbodyClass = null;
     public $tableFooterClass = null;
     public $trClass = null;
+    public $theadTrClass = null;
     public $thClass = null;
     public $tdClass = null;
     
@@ -128,11 +130,11 @@ trait Table
             'tbodyClass',
             'tableFooterClass',
             'trClass',
+            'theadTrClass',
             'thClass',
             'tdClass',
             'tableHeaderEnabled',
             'tableFooterEnabled',
-            'grouped',
             'arrow',
         ] as $property) {
             $this->$property = $this->$property ?? config('laravel-livewire-tables.' . $property);

@@ -17,14 +17,13 @@ class Column
     protected $attribute;
     protected $key;
 
-    protected $group = null;
+    protected $group = 1;
     protected $thColspan = 1;
     protected $tdColspan = 1;
     protected $colClass = null;
 
     protected $align = 'text-left';
-    protected $hideOnMobile = false;
-    protected $hideOnDesktop = false;
+    protected $visibility = 'flex md:table-cell';
 
 
     protected $iconBefore = false;
@@ -181,19 +180,19 @@ class Column
      */
     public function group($num): self
     {
-        $this->group = $num;
+        $this->group = $num ?? 1;
         return $this;
     }
 
     public function hideOnMobile(): self
     {
-        $this->hideOnMobile = true;
+        $this->visibility = 'hidden md:table-cell';
         return $this;
     }
 
     public function hideOnDesktop(): self
     {
-        $this->hideOnDesktop = true;
+        $this->visibility = 'flex md:hidden';
         return $this;
     }
 

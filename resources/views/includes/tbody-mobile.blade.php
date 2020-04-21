@@ -14,23 +14,21 @@ wire:key="{{ $model->{$model->getRouteKeyName()} }}">
                 @foreach($groups as $group)
                 <tr class="tr">
                     @foreach ($group as $column)
-                        @if(!$column->hideOnMobile)
-                            <td class="{{ $column->colClass }} {{ $column->align }}">
-                                @include('laravel-livewire-tables::includes.td-mobile-content')
-                            </td>
-                        @endif
+                        <td class="{{ $column->colClass }} {{ $column->visibility }} {{ $column->align }}">
+                            @include('laravel-livewire-tables::includes.td-mobile-content')
+                        </td>
                     @endforeach
                 </tr>
                 @endforeach
             </table>
         @else
             {{-- single cell --}}
-            @foreach($columns as $column)
-                @if(!$column->hideOnMobile)
-                    <div class="w-full flex flex-inline {{ $column->colClass }} {{ $column->align }}">
-                        @include('laravel-livewire-tables::includes.td-mobile-content')
-                    </div>
-                @endif
+            @foreach($groups as $group)
+            @foreach ($group as $column)
+                <div class="w-full flex flex-inline {{ $column->colClass }} {{ $column->visibility }} {{ $column->align }}">
+                    @include('laravel-livewire-tables::includes.td-mobile-content')
+                </div>
+            @endforeach
             @endforeach
         @endif
     </td>

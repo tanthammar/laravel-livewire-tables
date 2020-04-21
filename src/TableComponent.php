@@ -18,7 +18,7 @@ use Rappasoft\LaravelLivewireTables\Traits\Yajra;
 /**
  * Class TableComponent.
  */
-Trait TableComponent
+trait TableComponent
 {
     use Checkboxes,
         Loading,
@@ -29,7 +29,7 @@ Trait TableComponent
         Table,
         WithPagination,
         Yajra;
-    
+
 
     /**
      * Whether or not to refresh the table at a certain interval
@@ -44,10 +44,12 @@ Trait TableComponent
     /**
      * Constructor.
      */
-    public function setupTable() {
+    public function setupTable()
+    {
         $this->setTranslationStrings();
         $this->setTableProperties();
         $this->setPaginationProperties();
+        //$this->groups = $this->groupColumns();
     }
 
     /**
@@ -57,7 +59,7 @@ Trait TableComponent
     {
         $this->loadingMessage = __('Loading...');
         $this->offlineMessage = __('You are not currently connected to the internet.');
-        $this->noResultsMessage = __('There are no results to display for this query.');
+        $this->noResultsMessage = trans('messages.not_found');
         $this->perPageLabel = trans('pagination.per_page');
         $this->searchLabel = __('Search...');
     }
@@ -79,6 +81,27 @@ Trait TableComponent
      */
     abstract public function columns(): array;
 
+
+    public function groups()
+    {
+        foreach ($this->columns() as $column) {
+            $groups[$column->group][] = $column;
+        }
+        return \Arr::sortRecursive($groups);
+    }
+
+    public function searchTooltip()
+    {
+        $tooltip = $this->searchLabel . ' ';
+
+        foreach ($this->columns() as $column) {
+            if ($column->isSearchable()) {
+                $tooltip .= $column->text . '. ';
+            }
+        }
+        return $tooltip;
+    }
+
     /**
      * @return string
      */
@@ -98,7 +121,7 @@ Trait TableComponent
     public function tableView(): View
     {
         return view($this->view(), [
-            'columns' => $this->columns(),
+            'groups' => $this->groups(),
             'models' => $this->paginationEnabled ? $this->models()->paginate($this->perPage) : $this->models()->get(),
         ]);
     }
@@ -120,10 +143,10 @@ Trait TableComponent
                             $relationship = $this->relationship($column->attribute);
 
                             $query->orWhereHas($relationship->name, function (Builder $query) use ($relationship) {
-                                $query->where($relationship->attribute, 'like', '%'.$this->search.'%');
+                                $query->where($relationship->attribute, 'like', '%' . $this->search . '%');
                             });
                         } else {
-                            $query->orWhere($query->getModel()->getTable().'.'.$column->attribute, 'like', '%'.$this->search.'%');
+                            $query->orWhere($query->getModel()->getTable() . '.' . $column->attribute, 'like', '%' . $this->search . '%');
                         }
                     }
                 }
