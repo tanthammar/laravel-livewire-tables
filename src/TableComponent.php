@@ -87,7 +87,11 @@ trait TableComponent
         foreach ($this->columns() as $column) {
             $groups[$column->group][] = $column;
         }
-        return \Arr::sortRecursive($groups);
+        if (count($groups) > 1) {
+            //only sort if there are groups
+            $groups = \Arr::sortRecursive($groups);
+        }
+        return $groups;
     }
 
     public function searchTooltip()

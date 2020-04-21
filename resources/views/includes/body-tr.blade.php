@@ -13,7 +13,7 @@
         </div>
     @else
         @foreach($group as $column)
-            <div class="{{ $tdClass }} {{ $column->visibility }} {{ $column->colClass}}">
+            <div class="{{ $tdClass }} {{ $column->align }} {{ $column->visibility }} {{ $column->colClass}}">
                 <div class="md:hidden w-1/4 text-xs text-gray-400">{{ $column->text }}</div>
                 <div class="flex-1 md:block py-2">@include('laravel-livewire-tables::includes.cell')</div>
             </div>
